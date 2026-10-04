@@ -1,0 +1,7 @@
+datos/
+data/
+*.pbf
+*.gpkg
+*.zip
+*.sql
+*.csv
