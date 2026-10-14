@@ -1,0 +1,29 @@
+services:
+  db:
+    build: .
+    image: tarea1-postgis:16
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"            # desde el host (QGIS, psql): localhost:5433, base postgres
+    shm_size: 1gb
+    command: >
+      postgres
+      -c shared_buffers=512MB
+      -c work_mem=64MB
+      -c maintenance_work_mem=512MB
+      -c max_wal_size=4GB
+    volumes:
+      - pgdata:/var/lib/postgresql/data          # volumen con nombre
+      - ${DATOS_DIR:-./datos}:/datos:ro          # fuentes (no versionadas)
+      - ./sql:/sql:ro                            # una etapa del ETL por archivo
+      - ./salidas:/salidas                       # exportaciones para mapas
+    healthcheck:
+      # por TCP: durante el initdb el servidor temporal solo escucha en socket
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 40
+
+volumes:
+  pgdata:

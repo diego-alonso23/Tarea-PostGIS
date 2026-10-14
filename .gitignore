@@ -1,7 +1,10 @@
 datos/
 data/
 *.pbf
-*.gpkg
+*.osm
 *.zip
-*.sql
-*.csv
+osm_*.gpkg
+comunas_cl.sql
+.env
+# (salidas/ SÍ se versiona: ahí van los GeoPackage de los mapas)
+logs/
