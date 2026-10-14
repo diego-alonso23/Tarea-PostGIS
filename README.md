@@ -2,7 +2,7 @@
 
 Procesamiento Masivo de Datos (ELE051-B / EIN102B · USM 2026-2) · Profesor: Diego Ramírez · Paralelo 701
 
-**Integrantes:** COMPLETAR (nombre, rol USM)
+**Integrantes:** Diego Peña - Benjamín Tello
 **Repositorio:** COMPLETAR (URL pública de GitHub)
 
 Pipeline geoespacial completo (fuente → carga → índices → transformación → consultas) que cruza
