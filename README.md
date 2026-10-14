@@ -3,7 +3,7 @@
 Procesamiento Masivo de Datos (ELE051-B / EIN102B · USM 2026-2) · Profesor: Diego Ramírez · Paralelo 701
 
 **Integrantes:** Diego Peña - Benjamín Tello
-**Repositorio:** COMPLETAR (URL pública de GitHub)
+**Repositorio:** https://github.com/diego-alonso23/Tarea-PostGIS.git
 
 Pipeline geoespacial completo (fuente → carga → índices → transformación → consultas) que cruza
 **OpenStreetMap** con el **GTFS del transporte público de Santiago (DTPM)** y la **División Política
