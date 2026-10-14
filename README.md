@@ -217,8 +217,3 @@ COMPLETAR tras la Parte C: listar los índices con `idx_scan = 0` en `pg_stat_us
 
 COMPLETAR (pendiente): archivos `.sql`, resultados, planes `EXPLAIN ANALYZE` y mapas.
 
-## Licencias y atribución
-
-Datos © colaboradores de OpenStreetMap, licencia ODbL (<https://www.openstreetmap.org/copyright>).
-GTFS: Directorio de Transporte Público Metropolitano (DTPM). DPA: División Política Administrativa 2023.
-Los datos fuente no se versionan en este repositorio.
