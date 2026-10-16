@@ -44,6 +44,8 @@ Docker (Docker Desktop en Windows/macOS) con `docker compose` v2, y un shell bas
    | `*.pbf` (extracto de Chile, p. ej. `chile-261002.osm.pbf`) | <https://download.geofabrik.de/south-america/chile-latest.osm.pbf> |
    | `GTFS_*.zip` (GTFS vigente) | <https://www.dtpm.cl/index.php/noticias/gtfs-vigente> |
    | `comunas_cl.sql` (DPA 2023, Laboratorio 03) | repositorio del curso: `03/datos/comunas_cl.sql` |
+   
+   Para `comunas_cl.sql` se requiere la descarga de <https://www.geoportal.cl/geoportal/catalog/download/912598ad-ac92-35f6-8045-098f214bd9c2> (DPA 2023) y ejecucion de `preparar_datos.py` del (Laboratorio 03)
 
    El script detecta los archivos por patrón (`*.pbf`, `gtfs*.zip`, `comunas_cl.sql`); no hay que editar rutas.
 3. Levantar la infraestructura (la primera vez construye la imagen, ~1–2 min):

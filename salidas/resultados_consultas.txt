@@ -1,0 +1,170 @@
+--- Ejecutando P1: Paraderos por comuna y densidad ---
+     nom_comuna      | total_paraderos | area_zona_km2 | densidad_paraderos_km2 
+---------------------+-----------------+---------------+------------------------
+ San Ramón           |               6 |          0.17 |                  35.85
+ Lo Prado            |             201 |          6.54 |                  30.72
+ Lo Espejo           |             120 |          4.06 |                  29.59
+ Conchalí            |             317 |         10.94 |                  28.98
+ Santiago            |             624 |         23.18 |                  26.92
+ San Joaquín         |             246 |          9.94 |                  24.76
+ La Granja           |              27 |          1.09 |                  24.67
+ Quinta Normal       |             286 |         11.80 |                  24.23
+ La Cisterna         |              40 |          1.74 |                  23.02
+ Ñuñoa               |             386 |         16.89 |                  22.85
+ Cerro Navia         |             163 |          7.13 |                  22.85
+ Estación Central    |             322 |         14.37 |                  22.40
+ Pedro Aguirre Cerda |             192 |          8.73 |                  21.99
+ Macul               |             281 |         12.81 |                  21.94
+ Recoleta            |             341 |         15.61 |                  21.84
+ Independencia       |             156 |          7.35 |                  21.22
+ San Miguel          |             192 |          9.63 |                  19.94
+ Pudahuel            |             102 |          5.14 |                  19.83
+ Maipú               |             214 |         11.19 |                  19.13
+ La Florida          |             171 |          9.11 |                  18.78
+ Providencia         |             270 |         14.44 |                  18.69
+ Cerrillos           |             280 |         15.22 |                  18.39
+ La Reina            |             270 |         17.12 |                  15.77
+ Renca               |             239 |         16.73 |                  14.28
+ Peñalolén           |             440 |         30.86 |                  14.26
+ Las Condes          |             376 |         30.92 |                  12.16
+ Quilicura           |             186 |         16.64 |                  11.18
+ Huechuraba          |             163 |         20.96 |                   7.78
+ Vitacura            |             194 |         26.33 |                   7.37
+ Lo Barnechea        |               5 |          2.80 |                   1.79
+(30 rows)
+
+--- Ejecutando P2: Cobertura de edificios a > 500m (GTFS vs OSM) ---
+     nom_comuna      | total_edificios | sin_gtfs_500m | pct_sin_gtfs | sin_osm_500m | pct_sin_osm 
+---------------------+-----------------+---------------+--------------+--------------+-------------
+ Santiago            |           19717 |             0 |         0.00 |            0 |        0.00
+ Ñuñoa               |           12790 |             0 |         0.00 |            0 |        0.00
+ Providencia         |           12133 |            88 |         0.73 |           18 |        0.15
+ La Reina            |           11878 |           209 |         1.76 |          148 |        1.25
+ Las Condes          |           10841 |           281 |         2.59 |          269 |        2.48
+ Maipú               |            9793 |            22 |         0.22 |           22 |        0.22
+ Macul               |            5231 |             0 |         0.00 |            0 |        0.00
+ Vitacura            |            4014 |           159 |         3.96 |          158 |        3.94
+ Cerrillos           |            3948 |             3 |         0.08 |            3 |        0.08
+ Peñalolén           |            3466 |           102 |         2.94 |           88 |        2.54
+ Recoleta            |            3086 |            58 |         1.88 |           30 |        0.97
+ Renca               |            2851 |             4 |         0.14 |            4 |        0.14
+ San Joaquín         |            2649 |             0 |         0.00 |            0 |        0.00
+ Estación Central    |            2470 |             1 |         0.04 |            1 |        0.04
+ Quilicura           |            2291 |           171 |         7.46 |          173 |        7.55
+ San Miguel          |            1755 |             0 |         0.00 |            0 |        0.00
+ Independencia       |            1375 |            23 |         1.67 |           20 |        1.45
+ Conchalí            |            1341 |             0 |         0.00 |            0 |        0.00
+ Huechuraba          |            1268 |           136 |        10.73 |          132 |       10.41
+ Pedro Aguirre Cerda |            1155 |             0 |         0.00 |            0 |        0.00
+ Quinta Normal       |            1068 |             0 |         0.00 |            0 |        0.00
+ La Florida          |             953 |            43 |         4.51 |           43 |        4.51
+ Lo Prado            |             915 |             0 |         0.00 |            0 |        0.00
+ Pudahuel            |             664 |             0 |         0.00 |            0 |        0.00
+ Cerro Navia         |             458 |             0 |         0.00 |            0 |        0.00
+ La Cisterna         |             412 |             0 |         0.00 |            0 |        0.00
+ Lo Espejo           |             215 |             0 |         0.00 |            0 |        0.00
+ La Granja           |             150 |             0 |         0.00 |            0 |        0.00
+ Lo Barnechea        |              76 |            47 |        61.84 |           47 |       61.84
+ San Ramón           |              10 |             0 |         0.00 |            0 |        0.00
+(30 rows)
+
+--- Ejecutando P3: Dos fuentes, un objeto (Anti-join bidireccional a 50m) ---
+ total_gtfs | gtfs_sin_osm_50m | total_osm | osm_sin_gtfs_50m 
+------------+------------------+-----------+------------------
+       6812 |              448 |      6572 |              361
+(1 row)
+
+--- Ejecutando P4: Kilómetros de recorrido por comuna (ST_Intersection) ---
+     nom_comuna      | shapes_que_cruzan | rutas_distintas | km_recorridos 
+---------------------+-------------------+-----------------+---------------
+ Santiago            |               323 |             156 |       1339.99
+ Maipú               |               139 |              65 |       1283.86
+ La Florida          |               156 |              67 |        840.46
+ Pudahuel            |               149 |              69 |        798.48
+ Las Condes          |               139 |              74 |        767.66
+ Quilicura           |                93 |              47 |        753.82
+ Peñalolén           |               152 |              68 |        662.34
+ Ñuñoa               |               143 |              61 |        600.63
+ Estación Central    |               170 |              81 |        590.81
+ Providencia         |               178 |              84 |        495.74
+ Renca               |                60 |              37 |        440.12
+ La Reina            |                87 |              36 |        407.68
+ Vitacura            |                81 |              41 |        356.58
+ Cerrillos           |               100 |              54 |        355.26
+ Macul               |               104 |              53 |        335.17
+ Huechuraba          |                83 |              49 |        330.96
+ Quinta Normal       |                98 |              46 |        322.51
+ Conchalí            |                79 |              50 |        304.25
+ Cerro Navia         |                84 |              42 |        292.14
+ Lo Espejo           |                80 |              38 |        285.07
+ Recoleta            |               108 |              69 |        277.29
+ San Miguel          |                95 |              49 |        264.05
+ Lo Prado            |               124 |              70 |        260.40
+ La Cisterna         |                89 |              40 |        250.93
+ Pedro Aguirre Cerda |                75 |              39 |        229.05
+ San Joaquín         |                75 |              40 |        214.64
+ Independencia       |                60 |              42 |        204.23
+ Lo Barnechea        |                41 |              22 |        185.75
+ La Granja           |                68 |              36 |        185.40
+ San Ramón           |                65 |              30 |        155.24
+(30 rows)
+
+--- Ejecutando P5: Vecino más cercano (KNN con CROSS JOIN LATERAL y <->) ---
+ stop_id |                   stop_name                   | amenity_id | tipo_salud |      nombre_salud      | distancia_m 
+---------+-----------------------------------------------+------------+------------+------------------------+-------------
+ PA168   | PA168-Parada 4 / (M) Santa Lucía              |       8647 | pharmacy   | Farmacias del Dr. Simi |         5.3
+ PA215   | PA215-Parada 5 / (M) La Moneda                |       8674 | pharmacy   | Cruz Verde             |         9.9
+ PA187   | PA187-Parada 1 / (M) República                |       6414 | pharmacy   | Farmacia Ochoa         |        17.2
+ PA184   | PA184-Parada 4 / (M) La Moneda                |       4817 | pharmacy   | SalcoBrand             |        19.7
+ PI440   | PI440-Parada 3 / San Borja                    |       8928 | pharmacy   | Naturland              |        25.8
+ PA185   | PA185-Parada 3 / (M) Los Héroes               |      11907 | pharmacy   | Redfarma               |        25.8
+ PI449   | PI449-Parada 6 / (M) San Alberto Hurtado      |       1219 | pharmacy   | Farmacias Ahumada      |        32.7
+ PA172   | PA172-Parada 1 / (M) Parque Bustamante        |       4260 | pharmacy   | Farmatotal             |        33.1
+ PA336   | PA336-Parada 3 / (M) República                |       4063 | pharmacy   | Farmacias del Dr. Simi |        34.3
+ PI341   | PI341-Parada 1 / (M) Universidad de Santiago  |       4794 | pharmacy   | Farmacia Belgo Chilena |        36.7
+ PE125   | PE125-Parada 9 / (M) Bellavista de La Florida |       1195 | pharmacy   | Farmacias Ahumada      |        38.6
+ PC86    | PC86-Parada 4 / Plaza Italia                  |       1456 | pharmacy   | Cruz Verde             |        39.5
+ PD198   | PD198-Parada 2 / (M) Camino Agrícola          |        366 | pharmacy   | Damyfar                |        40.8
+ PE1499  | PE1499-Av. Vicuña Mackenna / esq. El Manzano  |      15639 | clinic     | Fonasa                 |        42.7
+ PH209   | PH209-Parada 1 / (M) Rodrigo de Araya         |      12044 | pharmacy   | Farmacia Amaya         |        43.0
+(15 rows)
+
+--- Ejecutando P6: Grilla hexagonal de 500m ---
+DROP MATERIALIZED VIEW
+SELECT 682
+CREATE INDEX
+ANALYZE
+ celda_id | num_edificios | num_rutas | num_shapes 
+----------+---------------+-----------+------------
+      519 |           755 |         0 |          0
+      373 |            91 |         0 |          0
+      301 |            81 |         0 |          0
+      652 |            71 |         0 |          0
+      416 |            45 |         0 |          0
+       84 |            45 |         0 |          0
+      651 |            37 |         0 |          0
+      637 |            29 |         0 |          0
+      505 |            29 |         0 |          0
+      632 |            28 |         0 |          0
+(10 rows)
+
+--- Ejecutando P7 (Propia): Cruce frecuencia de viajes GTFS vs Amenidades OSM a 100m ---
+ stop_id  |                stop_name                 | n_viajes | amenidades_a_100m | tipos_amenidades_distintos 
+----------+------------------------------------------+----------+-------------------+----------------------------
+ AL_L1_V2 | Alcántara Dirección San Pablo            |     1353 |                10 |                          6
+ BA_L1_V2 | Baquedano Dirección San Pablo            |     1353 |                 7 |                          6
+ CH_L1_V2 | Universidad de Chile Dirección San Pablo |     1353 |                23 |                          8
+ EM_L1_V2 | Escuela Militar Dirección San Pablo      |     1353 |                21 |                          8
+ GO_L1_V2 | El Golf Dirección San Pablo              |     1353 |                25 |                         15
+ LE_L1_V2 | Los Leones Dirección San Pablo           |     1353 |                33 |                         12
+ LH_L1_V2 | Los Héroes Dirección San Pablo           |     1353 |                16 |                          5
+ LM_L1_V2 | La Moneda Dirección San Pablo            |     1353 |                12 |                          8
+ MM_L1_V2 | Manuel Montt Dirección San Pablo         |     1353 |                33 |                         11
+ MQ_L1_V2 | Manquehue Dirección San Pablo            |     1353 |                18 |                          8
+ PV_L1_V2 | Pedro de Valdivia Dirección San Pablo    |     1353 |                34 |                         10
+ SA_L1_V2 | Salvador Dirección San Pablo             |     1353 |                 7 |                          7
+ SL_L1_V2 | Santa Lucía Dirección San Pablo          |     1353 |                13 |                          7
+ TB_L1_V2 | Tobalaba Dirección San Pablo             |     1353 |                25 |                         11
+ UC_L1_V2 | Universidad Católica Dirección San Pablo |     1353 |                11 |                          8
+(15 rows)
+
