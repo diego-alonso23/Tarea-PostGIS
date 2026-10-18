@@ -129,50 +129,14 @@ LIMIT 15;
 
 
 \echo '--- Ejecutando P6: Grilla hexagonal de 500m ---'
-DROP MATERIALIZED VIEW IF EXISTS public.grilla_hex_500m CASCADE;
+-- La vista materializada mv_grilla (y mv_q1_densidad) se define en sql/8_mapas.sql: misma fuente que los mapas.
+\i /sql/8_mapas.sql
 
-CREATE MATERIALIZED VIEW public.grilla_hex_500m AS
-WITH celdas AS (
-    SELECT 
-        row_number() OVER () AS celda_id,
-        g.geom AS geom
-    FROM public.zona z,
-    LATERAL ST_HexagonGrid(500.0, z.geom) g
-),
-edif_por_celda AS (
-    SELECT c.celda_id, COUNT(e.id) AS num_edificios
-    FROM celdas c
-    LEFT JOIN public.edificios e ON ST_Intersects(c.geom, e.geom_pt)
-    GROUP BY c.celda_id
-),
-rec_por_celda AS (
-    SELECT c.celda_id, COUNT(DISTINCT r.route_short_name) AS num_rutas, COUNT(DISTINCT r.shape_id) AS num_shapes
-    FROM celdas c
-    LEFT JOIN public.recorridos r ON ST_Intersects(c.geom, r.geom)
-    GROUP BY c.celda_id
-)
-SELECT 
-    c.celda_id,
-    COALESCE(ec.num_edificios, 0) AS num_edificios,
-    COALESCE(rc.num_rutas, 0) AS num_rutas,
-    COALESCE(rc.num_shapes, 0) AS num_shapes,
-    c.geom
-FROM celdas c
-LEFT JOIN edif_por_celda ec ON c.celda_id = ec.celda_id
-LEFT JOIN rec_por_celda rc ON c.celda_id = rc.celda_id;
-
-CREATE INDEX idx_grilla_hex_geom ON public.grilla_hex_500m USING GIST (geom);
-ANALYZE public.grilla_hex_500m;
-
-SELECT 
-    celda_id,
-    num_edificios,
-    num_rutas,
-    num_shapes
-FROM public.grilla_hex_500m
-WHERE num_edificios > 0
-ORDER BY num_rutas ASC, num_edificios DESC
-LIMIT 10;
+-- Top 10: mayor razón edificios / (recorridos + 1), solo celdas interiores a la zona
+SELECT rank_top, id AS celda_id, n_edificios, n_recorridos, n_shapes
+FROM mv_grilla
+WHERE rank_top IS NOT NULL
+ORDER BY rank_top;
 
 
 \echo '--- Ejecutando P7 (Propia): Cruce frecuencia de viajes GTFS vs Amenidades OSM a 100m ---'

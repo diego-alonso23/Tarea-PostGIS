@@ -1,6 +1,6 @@
 services:
   db:
-    build: .
+    build: ./docker
     image: tarea1-postgis:16
     environment:
       POSTGRES_PASSWORD: postgres
@@ -17,7 +17,7 @@ services:
       - pgdata:/var/lib/postgresql/data          # volumen con nombre
       - ${DATOS_DIR:-./datos}:/datos:ro          # fuentes (no versionadas)
       - ./sql:/sql:ro                            # una etapa del ETL por archivo
-      - ./salidas:/salidas                       # exportaciones para mapas
+      - ./resultados:/salidas                       # exportaciones para mapas
     healthcheck:
       # por TCP: durante el initdb el servidor temporal solo escucha en socket
       test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U postgres"]
