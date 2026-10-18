@@ -31,7 +31,6 @@ Pregunta que ordena todo: ¿cómo se relaciona la ciudad construida (OSM) con la
 │                             7_consultas (Parte C), 8_mapas (vistas de los mapas), 9_planes (planes, Subdivide, uso de índices)
 ├── scripts/                  exportar_mapas.sh (GeoPackage) y mapas.py (PNG)
 ├── resultados/               resultados_consultas.txt, mapas.gpkg, mapa1_grilla.png, mapa2_densidad_paraderos.png — SÍ se versionan
-├── verificar.sh              revisa el repo antes de subirlo (datos no versionados, permisos, README); no necesita Docker
 ├── datos/                    fuentes descargadas a mano (NO se versionan, ver .gitignore)
 └── logs/                     avisos de ogr2ogr (no se versiona)
 ```
@@ -84,7 +83,7 @@ docker compose exec -T db psql -U postgres -X -f /sql/9_planes.sql > resultados/
 ./scripts/exportar_mapas.sh
 ```
 
-Los archivos ya generados están en `resultados/`. `./verificar.sh` revisa el repositorio antes de subirlo (no necesita Docker).
+Los archivos ya generados están en `resultados/`.
 
 ## 2. Fuentes: fecha y versión
 
