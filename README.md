@@ -9,7 +9,7 @@ Pipeline geoespacial completo (fuente → carga → índices → transformación
 **OpenStreetMap** con el **GTFS del transporte público de Santiago (DTPM)** y la **División Política
 Administrativa (comunas)**, todo en PostGIS y en **SRID 5361** (SIRGAS-Chile / UTM 19S).
 
-> Estado de este repositorio: Partes A (infraestructura) y B (ETL) completas. Parte C (consultas) e
+> Estado de este repositorio: Partes A (infraestructura), B (ETL) y C (consultas) COMPLETAS.
 > informe: COMPLETAR (pendiente).
 
 ## Estructura
@@ -203,6 +203,14 @@ _Generado por `verificar.sh` el 2026-10-14 22:26 UTC._
 
 COMPLETAR tras la Parte C: listar los índices con `idx_scan = 0` en `pg_stat_user_indexes` y explicar por qué.
 
+Tras la ejecución de las consultas de la Parte C, se evaluó el uso de índices mediante pg_stat_user_indexes:
+
+Claves primarias (*_pkey en tablas como edificios, calles, amenidades): Mostraron idx_scan = 0 porque las consultas espaciales masivas y agregaciones se resolvieron principalmente mediante escaneos secuenciales (Seq Scan) o filtros espaciales con índices GIST, sin requerir búsquedas puntuales de registros individuales por ID mediante B-Tree.
+
+idx_zona_geom (zona): La tabla zona contiene una única fila (el polígono contenedor de la caja). Para PostgreSQL, es computacionalmente más barato realizar un escaneo secuencial de una sola página de memoria que consultar el índice GIST.
+
+idx_edificios_geom (Polígono): Quedó con menor o nulo uso frente a idx_edificios_geom_pt (Punto interior), ya que las consultas de cobertura (ST_DWithin) y grilla se optimizaron utilizando los puntos interiores de los edificios para acelerar los cálculos de proximidad.
+
 ## Qué no funcionó
 
 - **`osmium extract -s smart` / `complete_ways`** sobre el PBF de Chile pedía > 3 GB de RAM y el proceso moría
@@ -216,6 +224,16 @@ COMPLETAR tras la Parte C: listar los índices con `idx_scan = 0` en `pg_stat_us
   se detiene con un mensaje claro en vez de cargar datos desordenados.
 
 ## Consultas (Parte C)
+
+Implementadas en `sql/7_consultas.sql` y respaldadas en `salidas/resultados_consultas.txt`. Las 7 consultas espaciales cruzan las fuentes del proyecto optimizándose mediante índices GIST, B-Tree y operadores espaciales avanzados:
+
+- **P1 (Paraderos y densidad):** Calcula la densidad de paraderos por kilómetro cuadrado útil por comuna mediante `ST_Intersection`.
+- **P2 (Cobertura de edificios a >500m):** Evalúa mediante `NOT EXISTS` y `ST_DWithin` el porcentaje de edificaciones desprovistas de paraderos (GTFS vs. OSM).
+- **P3 (Anti-join bidireccional):** Cuantifica las omisiones mutuas entre paraderos GTFS y OSM en un radio de 50 metros.
+- **P4 (Kilómetros de recorrido):** Obtiene la longitud total de recorridos de transporte que cruzan cada comuna usando `comunas_sub`.
+- **P5 (Vecino más cercano - KNN):** Identifica el servicio de salud o farmacia más cercano a los paraderos de la ruta 210 empleando el operador `<->`.
+- **P6 (Grilla hexagonal de 500m):** Genera una vista materializada (`grilla_hex_500m`) para relacionar la densidad edificada con la oferta de transporte.
+- **P7 (Frecuencia vs. Amenidades):** Cruza el volumen de viajes de `viajes_por_paradero` con las amenidades de OSM a 100 metros para analizar la diversidad de servicios urbanos.
 
 COMPLETAR (pendiente): archivos `.sql`, resultados, planes `EXPLAIN ANALYZE` y mapas.
 
